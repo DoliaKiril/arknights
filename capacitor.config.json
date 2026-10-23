@@ -1,0 +1,6 @@
+{
+  "appId": "com.endfield.tacticalhelper",
+  "appName": "Endfield Tactical Helper",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

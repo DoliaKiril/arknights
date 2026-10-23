@@ -1,0 +1,15 @@
+{
+  "name": "endfield-tactical-helper",
+  "version": "4.0.0",
+  "description": "Тактический помощник, база оперативников и конструктор Цепочек Атак по игре Arknights: Endfield",
+  "private": true,
+  "scripts": {
+    "build": "mkdir -p www && cp index.html www/ && cp db_*.js www/ || true",
+    "sync": "npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/cli": "^6.1.0",
+    "@capacitor/core": "^6.1.0"
+  }
+}
