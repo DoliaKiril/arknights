@@ -1,0 +1,96 @@
+ТЫ — главный аналитик боевой системы Arknights: Endfield. Сгенерируй валидный JSON-объект нового оперативника для импорта в «Endfield Tactical Helper» СТРОГО по следующей схеме и на РУССКОМ языке (английские названия указывай в скобках):
+
+ПРАВИЛА ПРОВЕРКИ ФАКТОВ:
+1. Никаких упоминаний фабрики/завода — только боевая система!
+2. Проверь точный класс (Guard, Striker, Caster, Vanguard, Supporter, Defender), стихию (Physical, Heat, Electric, Cryo, Nature), тип оружия (Sword, Greatsword, Polearm, Handcannon, Arts Unit), Главный и Вторичный атрибуты (Strength, Agility, Intellect, Will).
+3. Обязательно пропиши точное условие запуска Комбо-навыка (comboTriggerIn) и какие состояния агент накладывает дальше (triggersOut, comboFollowUpOut).
+4. Обязательно заполни объект statWhy для каждого целевого стата «До боя» и «В бою» (для кнопки «?»).
+
+JSON-ШАБЛОН:
+{
+  "type": "character",
+  "data": {
+    "id": "slug_id",
+    "nameRu": "Имя (English Name)",
+    "nameEn": "English Name",
+    "rarity": 6,
+    "tier": "SS",
+    "classId": "Striker",
+    "classRu": "Штурмовик (Striker)",
+    "elementId": "Heat",
+    "elementRu": "Пиро (Heat)",
+    "weaponType": "Sword",
+    "weaponTypeRu": "Меч (Sword)",
+    "roleRu": "Главный ДД / Разрядник",
+    "mainAttr": "Intellect",
+    "subAttr": "Strength",
+    "baseStatsLv90": { "str": 121, "agi": 99, "int": 177, "will": 89, "hp": 5450, "atk": 335 },
+    "dna": {
+      "slotRole": "main_dps",
+      "spBalance": -150,
+      "scalingVector": ["Intellect", "ATK%", "Heat DMG%", "Basic Attack DMG%", "Ultimate Gain%"],
+      "triggersOut": ["Heat Infliction", "Combustion", "Melting Flame Absorption"],
+      "comboTriggerIn": {
+        "requiredStates": ["Combustion", "Corrosion"],
+        "conditionTextRu": "Срабатывает, когда на любого врага накладывается реакция Возгорание (Combustion) или Коррозия (Corrosion)."
+      },
+      "comboFollowUpOut": {
+        "nextStates": ["Melting Flame Stack", "Ultimate Energy +25..35", "Heat DMG AoE"],
+        "effectTextRu": "Наносит Пиро урон под ногами врага, даёт 1 стак Пылающего пламени и восстанавливает 25–35 ед. Энергии Ульты."
+      },
+      "buffOutVector": ["Heat RES Ignore 20% (self)"]
+    },
+    "preCombatStats": [
+      { "stat": "Интеллект (Intellect)", "target": "620–750+", "key": "mainAttr" },
+      { "stat": "Сила атаки (ATK)", "target": "2400–2900+", "key": "atk" },
+      { "stat": "Набор ульты (Ult Gain)", "target": "112.3% (или 100% с LYNX Slab)", "key": "ultGain" },
+      { "stat": "Бонус Пиро урона", "target": "85%–115%+", "key": "elemDmg" }
+    ],
+    "inCombatStats": [
+      { "stat": "Интеллект в бою", "target": "750–880+", "key": "mainAttrCombat" },
+      { "stat": "Сила атаки в бою", "target": "3800–4600+", "key": "atkCombat" },
+      { "stat": "Бонус Пиро + Обычных атак", "target": "220%–280%+", "key": "dmgCombat" },
+      { "stat": "Игнор Пиро резиста / Срез", "target": "20% + Коррозия", "key": "penCombat" }
+    ],
+    "statWhy": {
+      "mainAttr": "Главный атрибут даёт +0.5% базового множителя атаки за каждую единицу и умножается модулем LYNX Slab (+24.6%).",
+      "atk": "Фундамент для всех множителей навыков и реакций до входа в бой.",
+      "ultGain": "Порог 112.3% (16% с брони Redeemer) позволяет заряжать Ульту за 300 энергии ровно за 2 Усиленных боевых навыка и 2 Комбо-атаки по одиночной цели.",
+      "elemDmg": "Базовый аффикс стихийного урона с оружия и модулей.",
+      "mainAttrCombat": "С учётом пассивок, потенциалов и баффов отряда.",
+      "atkCombat": "С учётом +16..22% ATK от оружия саппортов (Thermite Cutter / Stanza of Memorials).",
+      "dmgCombat": "Включает +50% Пиро урона от сета Hot Work и +120% урона обычных атак от сигнатурного меча Forgeborn Scathe.",
+      "penCombat": "На 4 стаках Пылающего пламени талант Scorching Heart даёт 20% пробития Пиро сопротивления."
+    },
+    "guide": {
+      "mechanicsStepsRu": ["1) ...", "2) ...", "3) ..."],
+      "skills": [
+        { "type": "Обычная атака", "nameRu": "...", "cost": "0 SP (+18 Stagger)", "descRu": "..." },
+        { "type": "Боевой навык", "nameRu": "...", "cost": "100 SP", "descRu": "..." },
+        { "type": "Комбо-навык", "nameRu": "...", "cost": "Откат 9с | +25–35 Энергии", "descRu": "...", "triggerRu": "...", "followUpRu": "..." },
+        { "type": "Сверхспособность (Ульта)", "nameRu": "...", "cost": "300 Энергии", "descRu": "..." },
+        { "type": "Боевой талант 1", "nameRu": "...", "cost": "Пассивно", "descRu": "..." },
+        { "type": "Боевой талант 2", "nameRu": "...", "cost": "Пассивно", "descRu": "..." }
+      ],
+      "rotationStepsRu": ["Шаг 1 ➔ ...", "Шаг 2 ➔ ...", "Шаг 3 ➔ ..."],
+      "tipsAndTrapsRu": ["Фишка 1: ...", "Фишка 2: ...", "Ловушка 3: ..."],
+      "potentials": [
+        { "level": "P1", "nameRu": "...", "rating": "Высокая (+4% ДПС, +20 SP возврат)", "descRu": "..." },
+        { "level": "P2", "nameRu": "...", "rating": "Средняя (+6% ДПС)", "descRu": "..." },
+        { "level": "P3", "nameRu": "...", "rating": "Средняя (+5% ДПС)", "descRu": "..." },
+        { "level": "P4", "nameRu": "...", "rating": "Ключевая (-15% стоимости Ульты, +15% ДПС)", "descRu": "..." },
+        { "level": "P5", "nameRu": "...", "rating": "Максимальная (+20% урона в ульте и продление до +7 сек)", "descRu": "..." }
+      ],
+      "pullVerdictRu": "Сначала сигнатурное оружие (P0), затем P1 или P4.",
+      "bestGear": [
+        { "setId": "hot_work", "rank": "Топ-1 БиС (100%)", "slotsRu": "Броня: Hot Work Exo-Rig | Перчатки: Hot Work Gauntlets | Модуль 1: Hot Work Pyrometer | Модуль 2: LYNX Slab (или Redeemer Armor для 12.3% Ульты)", "whyRu": "..." }
+      ],
+      "bestWeapons": [
+        { "weaponId": "forgeborn_scathe", "eff": 100, "tag": "100% Сигна", "whyRu": "..." }
+      ],
+      "bestPartners": [
+        { "partnerId": "camille", "synergy": 98, "whyRu": "..." }
+      ]
+    }
+  }
+}

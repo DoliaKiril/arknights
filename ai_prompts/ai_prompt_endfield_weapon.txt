@@ -1,0 +1,19 @@
+ТЫ — аналитик арсенала Arknights: Endfield. Сгенерируй валидный JSON-объект нового оружия для импорта в «Endfield Tactical Helper» на РУССКОМ языке:
+
+{
+  "type": "weapon",
+  "data": {
+    "id": "weapon_slug_id",
+    "nameRu": "Русское название (English Name)",
+    "nameEn": "English Name",
+    "type": "Sword | Greatsword | Polearm | Handcannon | Arts Unit",
+    "typeRu": "Меч (Sword)",
+    "rarity": 6,
+    "baseAtk": 505,
+    "stat1": "Интеллект (Intellect) +156",
+    "stat2": "Сила атаки (ATK) +39.0%",
+    "passiveRu": "Полный перевод пассивной способности оружия с точными процентами и длительностью.",
+    "mechanicExplainRu": "Подробное объяснение простыми словами: кто и каким навыком активирует пассивку, в какую корзину формулы урона идёт бонус и почему это оружие эффективно.",
+    "bestCarriers": ["laevatain", "rossi"]
+  }
+}
